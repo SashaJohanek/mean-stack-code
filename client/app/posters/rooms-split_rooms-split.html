@@ -1,0 +1,162 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+
+<section>
+  <!-- START Page content-->
+  <div class="main-content">
+    <h3>Rooms / Split
+      <br>
+      <small>Move poster between rooms</small>
+    </h3>
+    <div ng-switch on="postersRoomsSplit.Rooms.length > 0">
+      <div  ng-switch-when="true">
+      <!--left room-->
+      <div class="col-md-6 main">
+        <div class="panel panel-default">
+          <div id="left-room"
+               class="panel-body"
+               data-drop="true"
+               data-position="left"
+               jqyoui-droppable="{multiple: true, onDrop: 'postersRoomsSplit.onDropRoom'}">
+            <div class="display-inline-block vertical-align-top">
+              <label>Room</label>
+              <ui-select ng-model="postersRoomsSplit.currentRoom.left"
+                         class="room-select"
+                         theme="bootstrap"
+                         ng-disabled="disabled"
+                         reset-search-input="false"
+                         on-select="postersRoomsSplit.selectionOnRoom()">
+                <ui-select-match  placeholder="Select an room...">{{postersRoomsSplit.currentRoom.left.title}}</ui-select-match>
+                <ui-select-choices repeat="room in postersRoomsSplit.Rooms ">
+                  <span  no-enter="true" ng-model="room.title" ng-bind-html="room.title | highlight: $select.search"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+
+            <div class="display-inline-block vertical-align-top">
+              <label>Date</label>
+              <input class="form-control" type="text" id="left-datepicker">
+            </div>
+
+            <div class="block-monitors">
+              <div class="monitors-in-room" data-ng-class="{'smaller-width': postersRoomsSplit.PostersOnRoomWithoutMonitor.left}">
+                <div class="sortable-poster display-inline-block vertical-align-top" data-ng-repeat="monitor in postersRoomsSplit.currentRoom.left.monitors">
+                  <div data-index="{{$index}}"
+                       data-position="left"
+                       data-drop="true"
+                       jqyoui-droppable="{multiple: true, onDrop: 'postersRoomsSplit.onDropMonitor'}"
+                       data-jqyoui-options="{revert: true, greedy: true}"
+                       class="col-md-6 panel monitor ">
+                    {{monitor.title}}
+
+                    <div ui-sortable="postersRoomsSplit.sortableOptions"
+                         data-ng-model="postersRoomsSplit.eventMonitor.left[$index]">
+                      <div data-ng-repeat="poster in postersRoomsSplit.eventMonitor.left[$index]"
+                           data-id="{{poster._id}}"
+                           data-position="left"
+                           class="poster-wrapper">
+                        {{poster.title}}
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="posters-in-room">
+                <div data-ng-repeat="poster in postersRoomsSplit.eventMonitor.left['-1']"
+                     data-id="{{poster._id}}"
+                     data-drag="true"
+                     jqyoui-draggable="{animate:false}"
+                     data-jqyoui-options="{revert: true, revertDuration: 0}"
+                     class="poster-wrapper">
+                  {{poster.title}}
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary count-button" ng-click="">{{postersRoomsSplit.PostersOnRoomWithoutMonitor.left}}</button>
+          </div>
+        </div>
+      </div>
+
+      <!--right room-->
+      <div class="col-md-6 main">
+        <div class="panel panel-default">
+          <div id="right-room"
+               class="panel-body"
+               data-position="right"
+               data-drop="true"
+               jqyoui-droppable="{multiple: true, onDrop: 'postersRoomsSplit.onDropRoom'}">
+            <div class="display-inline-block vertical-align-top">
+              <label>Room</label>
+
+              <ui-select ng-model="postersRoomsSplit.currentRoom.right"
+                         class="room-select"
+                         theme="bootstrap"
+                         ng-disabled="disabled"
+                         reset-search-input="false"
+                         on-select="postersRoomsSplit.selectionOnRoom()">
+                <ui-select-match  placeholder="Select an room...">{{postersRoomsSplit.currentRoom.right.title}}</ui-select-match>
+                <ui-select-choices repeat="room in postersRoomsSplit.Rooms ">
+                  <span  no-enter="true" ng-model="room.title" ng-bind-html="room.title"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+
+            <div class="display-inline-block vertical-align-top">
+              <label>Date</label>
+              <input class="form-control" type="text" id="right-datepicker">
+            </div>
+
+            <div class="block-monitors">
+              <div class="monitors-in-room" data-ng-class="{'smaller-width':  postersRoomsSplit.PostersOnRoomWithoutMonitor.right}">
+                <div class="sortable-poster display-inline-block vertical-align-top" data-ng-repeat="monitor in postersRoomsSplit.currentRoom.right.monitors">
+                  <div data-index="{{$index}}"
+                       data-position="right"
+                       data-drop="true"
+                       jqyoui-droppable="{multiple: true, onDrop: 'postersRoomsSplit.onDropMonitor'}"
+                       data-jqyoui-options="{revert: true, greedy: true}"
+                       class="col-md-6 panel monitor">
+                    {{monitor.title}}
+
+                    <div ui-sortable="postersRoomsSplit.sortableOptions"
+                         data-ng-model="postersRoomsSplit.eventMonitor.right[$index]">
+                      <div data-ng-repeat="poster in postersRoomsSplit.eventMonitor.right[$index]"
+                           data-id="{{poster._id}}"
+                           data-position="right"
+                           class="poster-wrapper">
+                        {{poster.title}}
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="posters-in-room">
+                <div data-ng-repeat="poster in postersRoomsSplit.eventMonitor.right['-1']"
+                     data-id="{{poster._id}}"
+                     data-drag="true"
+                     jqyoui-draggable="{animate:false}"
+                     data-jqyoui-options="{revert: true, revertDuration: 0}"
+                     class="poster-wrapper">
+                  {{poster.title}}
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary count-button" ng-click="">{{postersRoomsSplit.PostersOnRoomWithoutMonitor.right}}</button>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div ng-switch-default>
+        Sorry, we unable to load the content or there are less than two rooms.
+      </div>
+    </div>
+  </div>
+    <!-- END Page content-->
+    <!-- START Page footer-->
+    <footer>&copy; 2014 - Wintermin</footer>
+    <!-- END Page Footer-->
+</section>
+

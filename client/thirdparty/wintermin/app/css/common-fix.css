@@ -1,0 +1,22 @@
+/**
+ *
+ * Wintermin - Bootstrap Admin Theme - Page Common Stylesheet
+ *
+ * Author: @geedmo
+ * Website: http://geedmo.com
+ * License: Codecanyon Regular License
+ *
+ */
+
+.login .panel-dark > .panel-heading {
+  color: #656565;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+
+.login .panel {
+  background-color: transparent;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.05);
+  border: 0;
+}

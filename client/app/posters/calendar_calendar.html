@@ -1,0 +1,88 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+<section>
+  <!-- START Page content-->
+  <div class="main-content">
+    <h3>Posters Calendar
+      <br>
+      <small>Posters calendar.</small>
+    </h3>
+    <div class="row">
+      <div class="col-md-3 col-md main">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">Search panel
+            <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
+              <em class="fa fa-minus"></em>
+            </a>
+          </div>
+          <div class="panel-wrapper collapse in" style="height: auto;">
+            <div class="panel-body">
+              <input type="text" class="form-control inp-search" ng-model="query">
+
+              <div class="form-group">
+                <label>Presentation Type</label>
+                <ui-select ng-model="postersCalendar.selectedPoster"
+                           class=""
+                           theme="bootstrap"
+                           ng-disabled="disabled"
+                           reset-search-input="false"
+                           on-select="">
+                  <ui-select-match  placeholder="Select an type...">{{$select.selected.presentationType}}</ui-select-match>
+                  <ui-select-choices repeat="poster in postersCalendar.postersList | unique: 'presentationType'">
+                    <span no-enter="true" ng-bind-html="poster.presentationType">{{poster.presentationType}}</span>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+              <div class="form-group">
+                <div class="checkbox c-checkbox">
+                  <label>
+                    <input type="checkbox" value="" ng-model="postersCalendar.assigned">
+                    <span class="fa fa-check"></span>Assigned</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span>List of posters</span>
+            <span class="float-right" data-ng-click="postersCalendar.currentEventsLog()">Log</span>
+          </div>
+          <div class="panel-body">
+            <div data-drag="true"
+                 jqyoui-draggable="{animate:false}"
+                 data-jqyoui-options="{revert: true, revertDuration: 0}"
+                 ng-repeat="poster in postersCalendar.postersList |
+                    filter: search |
+                    filter: { presentationType: postersCalendar.selectedPoster.presentationType } |
+                    filter: postersCalendar.filteringByAssigned
+                    track by $index"
+
+                 class="poster-wrapper alert alert-success"
+                 data-id="{{poster._id}}">
+              <span class="label label-info mr ng-binding">{{poster.code}}</span>
+              <span>{{poster.title}} - {{poster.start| date: 'yyyy-MM-dd HH:mm:ss Z'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 main">
+        <div data-drop="true"
+             jqyoui-droppable="{multiple: true}"
+             id="calendar"
+             ui-calendar="postersCalendar.uiConfig.calendar"
+             class="span8 calendar calendar-control"
+             ng-model="postersCalendar.eventSources">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END Page content-->
+  <!-- START Page footer-->
+  <footer>&copy; 2014 - Wintermin</footer>
+  <!-- END Page Footer-->
+</section>

@@ -1,0 +1,34 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('quizzes.details') }">
+  <div class="panel-heading">
+    {{data.model.title}}
+    <a href title="Edit this news" class="fa fa-edit pull-right" ui-sref="quizzes.update({id: data.model._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <p ng-bind="data.model.body"></p>
+
+    <div ng-repeat="questionItem in data.model.questions">
+      <h5>Question {{ $index + 1}}: <strong>{{ questionItem.question }}</strong></h5>
+      <table class="table" >
+        <thead>
+          <tr>
+            <th>Answer</th>
+            <th>Correct</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="answerItem in questionItem.answers">
+            <td ng-bind="answerItem.answer"></td>
+            <td ng-bind="answerItem.isCorrect"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="quizzes.update({id: data.model._id})">Edit</button>
+  </div>
+</div>

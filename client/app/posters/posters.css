@@ -1,0 +1,132 @@
+@import '../../bower_components/jquery-ui/themes/smoothness/jquery-ui.css';
+
+.poster-wrapper{
+    border: 1px solid black;
+    padding: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+.btn-posterEdit{
+  margin-left: 1000px;
+}
+.poster-inf{
+  display: block;
+  margin-left: 20px;
+}
+.inp-search{
+  margin-bottom: 20px;
+}
+.panel-listP{
+  height: 39px;
+}
+.room-select{
+  width: 433px;
+}
+
+/*
+ * Posters / Monitors
+ */
+.screen-monitors{
+
+}
+
+.screen-monitors .poster-title{
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.monitor{
+  width: 260px;
+  min-height: 200px;
+  margin-right:12px ;
+}
+.block-monitors{
+  margin-top: 50px;
+  position: relative;
+/*margin-left: 180px;*/
+}
+.btn-room{
+
+}
+.float-right{
+    float: right;
+    cursor: pointer;
+}
+.display-inline-block{
+    display: inline-block;
+}
+.vertical-align-top{
+    vertical-align: top;
+}
+
+.count-div{
+  vertical-align: bottom;
+  /*position: relative;*/
+  height: 32px;
+}
+.count-button{
+    bottom: 25px;
+    position: absolute;
+    right: 20px;
+}
+.monitors-in-room{
+    width: auto;
+    display: inline-block;
+    max-width: 95%;
+}
+.posters-in-room{
+    display: inline-block;
+    height: 100%;
+    width: auto;
+    min-width: 5%;
+    position: relative;
+    float: right;
+    margin-bottom: 25px
+}
+.posters-in-room div{
+    width: 200px;
+}
+.smaller-width{
+    width: calc(100% - 200px); /*200px this width in: .posters-in-room div*/
+}
+
+.affix {
+  top:70px;
+}
+.delimiter div{
+  display: inline-block;
+  width: 160px;
+}
+.delimiter label{
+  vertical-align: bottom;
+}
+.input-file{
+  padding: 5px 0;
+}
+.checkbox-disable{
+  opacity: 0.5;
+}
+.delimiter-input{
+  text-align: left;
+  box-shadow: 0 0 0 #000 !important;
+  border-radius: 3px;
+  font-size: 13px;
+  color: #333;
+  background-color: #fff;
+  margin-bottom: 0;
+  font-weight: normal;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-color: #ccc;
+  white-space: nowrap;
+  padding: 6px 12px;
+  height: 34px;
+}
+input[type="checkbox"]{
+  vertical-align: middle;
+}
+
+/*>>>>>>> calendar/master*/

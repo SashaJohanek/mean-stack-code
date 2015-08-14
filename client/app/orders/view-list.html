@@ -1,0 +1,98 @@
+<div class="panel panel-default">
+  <div class="panel-heading">List of orders</div>
+  <div class="panel-body">
+
+    <div ng-switch on="data.orders.length > 0">
+      <!-- Display the news when available -->
+      <div ng-switch-when="true">
+
+        <table class="table table-hover">
+          <thead>
+            <tr role="row">
+              <th></th>
+              <th>Date</th>
+              <th>Full Name</th>
+              <th>Status</th>
+              <th>Method</th>
+              <th>Items</th>
+              <th>Estimation</th>
+              <th>Actions</th>
+          </thead>
+
+          <tbody>
+            <tr ng-repeat="item in data.orders"
+            ng-class="{success: (item.status === 'STATUS_DELIVERED'), warning: (item.status === 'STATUS_NEW_UNREAD'), danger: (item.status === 'STATUS_CANCELED')}">
+              <td><em ng-show="item.status === 'STATUS_NEW_UNREAD'" class="fa fa-circle text-danger"></em></td>
+              <td ui-sref="orders.details({id: item._id})"> {{ item.date | date:'d MMMM yyyy h:mm'}}</td>
+              <td ui-sref="orders.details({id: item._id})" ng-bind="item.shipping.fullname"></td>
+              <td ui-sref="orders.details({id: item._id})">{{item.status | statusDescriptor}}</td>
+              <td ui-sref="orders.details({id: item._id})">
+                <em class="fa"
+                    ng-class="{'fa-truck': (item.deliveryMethod === 'METHOD_DELIVERY'), 'fa-thumb-tack': (item.deliveryMethod === 'METHOD_TAKEAWAY')  }"
+                    style="min-width: 20px;">
+                </em>
+                {{item.deliveryMethod | methodDescriptor}}</td>
+              <td>{{item.items.length}}</td>
+              <td>{{item.preparationTime()}} min</td>
+              <td>
+                <div class="btn-group">
+                  <button ng-click="preview($index)" type="button" class="btn btn-default"><em class="fa fa-eye"></em></button>
+                  <button type="button" ui-sref="orders.details({id: item._id, ref:'print'})" class="btn btn-default"><em class="fa fa-print"></em></button>
+                  <div class="btn-group" dropdown>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      <em class="fa fa-ellipsis-v" style="min-width: 11px;"></em>
+                    </button>
+                    <ul class="dropdown-menu pull-right text-left">
+                      <li>
+                        <a href="javascript:void(0);" ng-click="open($index)">New</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);" ng-click="complete($index)">Complete</a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);" ng-click="cancel($index)">Cancel</a>
+                      </li>
+                    </ul>
+                  </div><!-- /.btn-group -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- news pager -->
+        <ul class="pager">
+          <!-- Previous button when enabled-->
+          <li class="previous" ng-hide="paginator.previous()">
+            <a href ng-click="previousPage()">Previous</a>
+          </li>
+
+          <!-- Previous button when disabled-->
+          <li class="previous disabled" ng-show="paginator.previous()">
+            <a href>Previous</a>
+          </li>
+
+          <li>
+              page {{paginator.getPage()}} / {{paginator.getPages()}}
+          </li>
+
+          <!-- Next button when enabled-->
+          <li class="next" ng-hide="paginator.next()">
+            <a ng-click="nextPage()">Next</a>
+          </li>
+
+          <!-- Next button when disabled-->
+          <li class="next disabled" ng-show="paginator.next()">
+            <a href>Next</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Say sorry when we are not able to display the news -->
+      <div ng-switch-default>
+        There are no data available.
+      </div>
+    </div>
+  </div><!-- //.panel-body -->
+
+</div>

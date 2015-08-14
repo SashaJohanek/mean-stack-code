@@ -1,0 +1,115 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+<!-- END aside-->
+
+<section>
+  <!-- START Page content-->
+  <div class="main-content">
+    <h3>Account.
+       <br>
+       <small>Information about the business and other preferences.</small>
+    </h3>
+    <div class="row">
+      <form role="form" name="accountForm" class="form-horizontal">
+
+        <div class="col-md-12 col-md main" ui-view="mainPane">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Account</div>
+
+            <div class="panel-body">
+
+              <fieldset>
+                <legend>Invoice details</legend>
+
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">Name</label>
+                     <div class="col-sm-10">
+                       <input class="form-control" type="text" ng-model="data.invoice.name" value="" placeholder="My Business Co." readonly="readonly">
+                       <span class="help-block">Contact the admininstrator in order to change these values.</span>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">Organization ID</label>
+                     <div class="col-sm-10">
+                       <input class="form-control" type="text" ng-model="data.invoice.organisationId" value="" placeholder="#123457890" readonly="readonly">
+                       <span class="help-block">Contact the admininstrator in order to change these values.</span>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">Phone</label>
+                     <div class="col-sm-10">
+                       <input class="form-control" type="text" ng-model="data.invoice.phone" value="" placeholder="+30 697 221 00">
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">Email</label>
+                     <div class="col-sm-10">
+                       <input class="form-control" type="text" ng-model="data.invoice.email" value="" placeholder="info@mybusiness.com">
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">Address</label>
+                     <div class="col-sm-10">
+                       <input class="form-control" type="text" ng-model="data.invoice.address" value="" placeholder="Enter the invoice address">
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">Address 2</label>
+                     <div class="col-sm-10">
+                       <input class="form-control" type="text" ng-model="data.invoice.addressExtra" value="" placeholder="Enter the invoice address">
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">Zip Code</label>
+                     <div class="col-sm-10">
+                       <input class="form-control" type="text" ng-model="data.invoice.zipcode" value="" placeholder="eg: 621 00">
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label class="col-sm-2 control-label">State</label>
+                     <div class="col-sm-10">
+                       <input class="form-control" type="text" ng-model="data.invoice.state" value="" placeholder="eg: Louisiana">
+                     </div>
+                  </div>
+
+              </fieldset>
+
+            </div><!-- //.panel-body -->
+
+            <div class="panel-footer">
+              <button ng-disabled="(accountForm.$valid) ? false : false" class="btn btn-primary" ng-click="update()">Save</button>
+              <button ng-click="cancel()" class="btn btn-warning">Cancel</button>
+            </div>
+
+          </div> <!-- /.panel -->
+
+
+        </div> <!-- /ui main-view -->
+      </form>
+    </div> <!-- / .row -->
+
+  </div>
+  <!-- END Page content-->
+  <!-- START Page footer-->
+  <footer>&copy; 2014 - Wintermin</footer>
+  <!-- END Page Footer-->
+</section>
+
+<style>
+  /* This margin value is set to 0 when the form-group is into a fieldset
+   * We do not need this so re-set this in its initial value
+   */
+  fieldset .form-group {
+    margin-bottom: 15px;
+  }
+</style>

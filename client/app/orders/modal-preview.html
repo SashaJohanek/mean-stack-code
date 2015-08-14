@@ -1,0 +1,82 @@
+<div class="modal-header">
+  <h3>Order preview</h3>
+</div>
+
+<div class="modal-body">
+  <div class="row mb-lg">
+    <div class="col-lg-6 col-xs-12 br pv">
+      <div class="row">
+        <div class="col-md-2 text-center visible-md visible-lg">
+          <em class="fa fa-plane fa-4x text-muted"></em>
+        </div>
+        <div class="col-md-10">
+          <h4>{{order.shipping.fullname}}</h4>
+          <address>{{order.shipping.address}}</address>
+          <br>{{order.shipping.city}}, {{order.shipping.zip}}
+          <br>Neverland</div>
+      </div>
+    </div>
+    <div class="clearfix hidden-md hidden-lg">
+      <hr>
+    </div>
+    <div class="col-lg-6 col-xs-12 pv">
+      <div class="clearfix">
+        <p class="pull-left">INVOICE NO.</p>
+        <p class="pull-right mr">{{order._id}}</p>
+      </div>
+      <div class="clearfix">
+        <p class="pull-left">Date</p>
+        <p class="pull-right mr">{{order.date | date:'d MMMM yyyy'}}</p>
+      </div>
+      <div class="clearfix">
+        <p class="pull-left">Due Date</p>
+        <p class="pull-right mr">30/08/2014</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive table-bordered mb-lg">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item #</th>
+          <th>Description</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th class="text-right">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in order.items" ng-controller="OrdersDetailsCtrl">
+          <td>{{$index}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.unitPrice | currency : "$"}}</td>
+          <td class="text-right">{{item.totalPrice | currency : "$"}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-offset-6 col-sm-6 pv">
+      <div class="clearfix">
+        <p class="pull-left">Subtotal</p>
+        <p class="pull-right mr">$ 10300 {tbd}</p>
+      </div>
+      <div class="clearfix">
+        <p class="pull-left">Tax ({{order.tax.percentage | percentage}})</p>
+        <p class="pull-right mr">{{order.tax.value | currency : "$"}}</p>
+      </div>
+      <div class="clearfix">
+        <p class="pull-left h4">GRAND TOTAL</p>
+        <p class="pull-right mr h4">{{order.grandTotal | currency : "$"}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="ok()">View order</button>
+  <button class="btn btn-warning" ng-click="cancel()">Close</button>
+</div>

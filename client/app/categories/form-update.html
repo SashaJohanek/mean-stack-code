@@ -1,0 +1,59 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('categories.update'), 'csspinner traditional': ui.inProgress}" ng-file-drop="onFileSelect($files)">
+  <div class="panel-heading">Edit category</div>
+
+  <form role="form" name="updateForm">
+    <div class="panel-body">
+      <div class="form-group">
+        <label>Name *</label>
+        <input class="form-control" type="text" ng-model="data.model.name" value="" placeholder="Name" required>
+      </div>
+
+      <div class="form-group">
+        <label>Photo</label>
+        <div class="well">
+          <p>
+            <img ng-if="data.model.picture" ng-src="{{data.model.picture}}" class="img-responsive img-thumbnail" alt="{{data.model.name}}" width="100%">
+          </p>
+
+          <p>
+            <button ng-if="data.model.picture" type="button" class="btn btn-danger btn-xs" ng-click="deleteImage(data.model)">
+              <span aria-hidden="true">&times;</span>
+              <!--
+              <span class="sr-only">Close</span>
+              -->
+              <span>Delete image</span>
+            </button>
+          </p>
+          <div ng-file-drop="onFileSelect($files)"
+               ng-file-select="onFileSelect($files)"
+               ng-file-drag-over-class="bg-success"
+               ng-show="dropSupported"
+               class="drop-box">
+               drop an image here<br>
+               or click to select a file
+          </div>
+
+          <div ng-file-drop-available="dropSupported=true"
+               ng-show="!dropSupported">
+               HTML5 Drop File is not supported!
+               <input type="file" name="image" ng-file-select="onFileSelect($files)">
+          </div>
+
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{ui.progress}}%">
+              {{ui.progress}}% Complete
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="required">* Required fields</div>
+    </div>
+    <div class="panel-footer">
+      <button ng-disabled="(updateForm.$valid) ? false : true" class="btn btn-success" ng-click="update()">Update</button>
+      <button ui-sref="categories.details({id: data.model._id})" class="btn btn-warning">Cancel</button>
+    </div>
+  </form>
+
+</div>

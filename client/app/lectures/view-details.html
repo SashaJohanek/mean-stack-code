@@ -1,0 +1,38 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('lectures.details') }">
+  <div class="panel-heading">
+    {{data.model.title}}
+    <a href title="Edit this lecture" class="fa fa-edit pull-right" ui-sref="lectures.update({id: data.model._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <p ng-bind="data.model.body"></p>
+
+    <div class="embed-responsive embed-responsive-16by9">
+      <youtube-video video-url="data.model.youtubeLink"></youtube-video>
+    </div>
+
+    <p>
+      <div class="row">
+        <div ng-repeat="picture in data.model.pictures" class="image col-sm-6">
+          <img ng-if="picture" ng-src="{{picture}}" class="img-responsive img-thumbnail" alt="{{picture.title}}" width="100%">
+        </div>
+      </div>
+
+      <style>
+      .row > div.image:nth-child(odd) {
+        clear: both;
+      }
+      </style>
+    </p>
+
+    <div class="pull-right">
+      <span class="label label-default" ng-bind="data.model.topic.name"></span>
+    </div>
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="lectures.update({id: data.model._id})">Edit</button>
+  </div>
+
+</div>

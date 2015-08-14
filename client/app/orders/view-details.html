@@ -1,0 +1,122 @@
+  <p>
+    <a ui-sref="orders" class="return-back print {{ui.ref}} btn btn-primary" ng-class="{'btn btn-primary': ui.ref=='back'}"><em class="fa fa-reply"></em> Return back to orders list</a>
+  </p>
+
+  <div class="panel">
+    <div class="panel-body">
+      <button type="button" class="pull-right btn btn-default btn-sm">Copy this invoice</button>
+      <h3 class="mt0">Invoice {{order._id}}</h3>
+      <span class="label label-default ng-binding"
+        ng-class="{'label-success': (order.status === 'STATUS_DELIVERED'), 'label-info': (order.status === 'STATUS_NEW'), 'label-warning': (order.status === 'STATUS_CANCELED')}"
+
+      >{{order.status | statusDescriptor}}</span>
+      <hr>
+      <div class="row mb-lg">
+        <div class="col-lg-4 col-xs-6 br pv">
+          <div class="row">
+            <div class="col-md-2 text-center visible-md visible-lg">
+              <em class="fa fa-envelope fa-3x text-muted"></em>
+            </div>
+            <div class="col-md-10">
+              <h4>{{order.restaurant.name}}</h4>
+              <address>{{order.restaurant.address}}</address>
+              <br>{{order.restaurant.city}}, {{order.restaurant.zip}}
+              <br>Neverland</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-xs-6 br pv">
+          <div class="row">
+            <div class="col-md-2 text-center visible-md visible-lg">
+              <em class="fa fa-truck fa-3x text-muted"></em>
+            </div>
+            <div class="col-md-10">
+              <h4>{{order.shipping.fullname}}</h4>
+              <address>{{order.shipping.address}}</address>
+              <br>{{order.shipping.city}}, {{order.shipping.zip}}
+              <br>Moon</div>
+          </div>
+        </div>
+        <div class="clearfix hidden-md hidden-lg">
+          <hr>
+        </div>
+        <div class="col-lg-4 col-xs-12 pv">
+          <div class="clearfix">
+            <p class="pull-left">INVOICE NO.</p>
+            <p class="pull-right mr">{{order._id}}</p>
+          </div>
+          <div class="clearfix">
+            <p class="pull-left">Date</p>
+            <p class="pull-right mr">{{order.date | date:'d MMMM yyyy'}}</p>
+          </div>
+          <div class="clearfix">
+            <p class="pull-left">Due Date</p>
+            <p class="pull-right mr">30/08/2014</p>
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive table-bordered mb-lg">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Item #</th>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>Tax %</th>
+              <th class="text-right">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in order.items">
+              <td>{{$index}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.unitPrice | currency : "$"}}</td>
+              <td>{{item.tax.value}}%</td>
+              <td class="text-right">{{item.totalPrice | currency : "$"}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-sm-offset-8 col-sm-4 pv">
+          <div class="clearfix">
+            <p class="pull-left">Subtotal</p>
+            <p class="pull-right mr">{{order.netTotal | currency : "$"}}</p>
+          </div>
+          <div class="clearfix">
+            <div ng-repeat="t in order.tax" class="clearfix">
+              <p class="pull-left">Tax ({{t.percentage | percentage}})</p>
+              <p class="pull-right mr">{{t.value | currency : "$"}}</p>
+            </div>
+          </div>
+          <div class="clearfix">
+            <p class="pull-left h3">GRAND TOTAL</p>
+            <p class="pull-right mr h3">{{order.grandTotal | currency : "$"}}</p>
+          </div>
+        </div>
+      </div>
+      <hr class="hidden-print">
+      <div class="clearfix">
+        <button type="button" class="btn btn-default pull-left mr" ng-click="open()">New</button>
+        <button type="button" class="btn btn-success pull-left mr" ng-click="complete()">Complete</button>
+        <button type="button" class="btn btn-warning pull-left mr" ng-click="cancel()">Cancel</button>
+        <button type="button" onclick="window.print();" class="btn btn-default pull-left">Print</button>
+        <button type="button" class="btn btn-info pull-right">Send Invoice</button>
+      </div>
+    </div>
+  </div>
+
+<!--
+<script>
+  $(document).ready(function(){
+
+  var interval = setTimeout(function(){
+    var a = window.print();
+
+    console.log("Print return %o", a);
+  },500);
+
+});
+</script>
+-->

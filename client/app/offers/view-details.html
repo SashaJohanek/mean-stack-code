@@ -1,0 +1,63 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('offers.details') }">
+  <div class="panel-heading">
+    {{data.model.name}}
+    <a href title="Edit this category" class="fa fa-edit pull-right" ui-sref="offers.update({id: data.model._id})"></a>
+  </div>
+
+  <div class="panel-body">
+
+    <div class="pull-right">
+      <span ng-if="data.model.active" class="label label-success">
+        <span>Active</span>
+      </span>
+      <span ng-if="!data.model.active" class="label label-default">
+        <span>Inactive</span>
+      </span>
+    </div>
+
+    <p class="lead" ng-bind="data.model.intro"></p>
+
+    <p>
+      <img ng-if="data.model.picture" ng-src="{{data.model.picture}}" class="img-responsive img-thumbnail" alt="{{data.model.name}}" width="100%">
+    </p>
+
+    <p ng-bind="data.model.description"></p>
+
+    <div>
+      <h4>Prices</h4>
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tr>
+            <th>Type</th>
+            <th>Price</th>
+          </tr>
+
+          <tr ng-repeat="price in data.model.prices">
+            <td>
+              <span ng-bind="price.name"></span>
+            </td>
+            <td>
+              <span ng-bind="price.value"></span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="pull-right">
+      <span ng-if="data.model.item.name" class="label label-default">
+        <span>{{data.model.item.name}}</span>
+      </span>
+      <span ng-if="!data.model.item.name" class="label label-default">
+        <span>No menu item selected</span>
+      </span>
+    </div>
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="offers.update({id: data.model._id})">Edit</button>
+  </div>
+
+</div>

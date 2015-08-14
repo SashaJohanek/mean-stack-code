@@ -1,0 +1,22 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('topics.details') }">
+  <div class="panel-heading">
+    {{data.model.name}}
+    <a href title="Edit this topic" class="fa fa-edit pull-right" ui-sref="topics.update({id: data.model._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <p>
+      <img ng-if="data.model.picture" ng-src="{{data.model.picture}}" class="img-responsive img-thumbnail" alt="{{data.model.name}}" width="100%">
+    </p>
+
+    <div class="pull-right">
+      <span class="label label-default" ng-bind="data.model.course.name"></span>
+    </div>
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="topics.update({id: data.model._id})">Edit</button>
+  </div>
+
+</div>

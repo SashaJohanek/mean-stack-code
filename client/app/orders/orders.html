@@ -1,0 +1,31 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+<!-- END aside-->
+
+<section>
+  <!-- START Page content-->
+  <div class="main-content">
+    <h3>Orders
+       <br>
+       <small>The order that have been submited so far and their status.</small>
+    </h3>
+    <div class="row">
+      <div class="col-md-12 col-md main" ui-view="mainPane">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5 col-md main" ui-view="leftPane">
+      </div>
+
+      <div class="col-md-5 main" ui-view="rightPane">
+      </div>
+    </div>
+  </div>
+  <!-- END Page content-->
+  <!-- START Page footer-->
+  <footer>&copy; 2014 - Wintermin</footer>
+  <!-- END Page Footer-->
+</section>

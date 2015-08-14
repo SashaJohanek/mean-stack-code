@@ -1,0 +1,184 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+
+<section>
+  <!-- START Page content-->
+  <div class="main-content screen-monitors">
+    <h3>Posters monitor
+      <br>
+      <small>Posters monitor</small>
+    </h3>
+    <div ng-switch on="postersMonitors.Rooms.length > 0">
+    <div class="row" ng-switch-when="true">
+      <div class="col-md-3 col-md main">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">Search panel
+            <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
+              <em class="fa fa-minus"></em>
+            </a>
+          </div>
+          <div class="panel-wrapper collapse in" style="height: auto;">
+            <div class="panel-body">
+              <input type="text" class="form-control inp-search" ng-model="search">
+
+              <div class="form-group">
+                <label>Presentation Type</label>
+                <ui-select ng-model="postersMonitors.selectedPoster"
+                           class=""
+                           theme="bootstrap"
+                           ng-disabled="disabled"
+                           reset-search-input="false"
+                           on-select="">
+                  <ui-select-match  placeholder="Select an type...">{{$select.selected.presentationType}}</ui-select-match>
+                  <ui-select-choices repeat="poster in postersMonitors.postersList | unique: 'presentationType'">
+                    <span no-enter="true" ng-bind-html="poster.presentationType">{{poster.presentationType}}</span>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+              <div class="form-group">
+                <div class="checkbox c-checkbox">
+                   <label>
+                      <input type="checkbox" value="" ng-model="postersMonitors.assigned">
+                      <span class="fa fa-check"></span>Include already assigned posters.</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span>List of posters</span>
+            <span class="float-right" data-ng-click="postersMonitors.currentEventsLog()">Log</span>
+          </div>
+          <div class="panel-body">
+            <div data-drag="true"
+               jqyoui-draggable="{animate:false}"
+               data-jqyoui-options="{revert: true, revertDuration: 0}"
+               ng-repeat="poster in postersMonitors.postersList |
+                  filter: search |
+                  filter: { presentationType: postersMonitors.selectedPoster.presentationType } |
+                  filter: postersMonitors.filteringByAssigned"
+               class="poster-wrapper panel"
+               ng-class="{'bg-success': postersMonitors.isPosterAssigned(poster)}"
+               data-id="{{poster._id}}"
+               ng-click="postersMonitors.View(poster.title)">
+              <span class="label label-default ng-binding">{{poster.code}}</span>
+              <span class="label label-primary">{{poster.presentationType}}</span>
+              <span class="poster-title">{{poster.title}}</span><br/>
+              <div style="line-height: 150%">
+                <span class="label label-info">Monitor {{poster.monitor + 1}}</span>
+                <span class="label label-info">{{poster.room.roomName}}</span>
+              </div>
+            </div>
+
+            <!-- pager -->
+            <ul class="pager">
+              <!-- Previous button when enabled-->
+              <li ng-hide="paginator.previous()" class="previous">
+                <a href ng-click="previousPage()">Previous</a>
+              </li>
+
+              <!-- Previous button when disabled-->
+              <li class="previous disabled" ng-show="paginator.previous()">
+                <a href>Previous</a>
+              </li>
+
+              <!-- Next button when enabled-->
+              <li ng-hide="paginator.next()" class="next">
+                <a href ng-click="nextPage()">Next</a>
+              </li>
+
+              <!-- Next button when disabled-->
+              <li class="next disabled" ng-show="paginator.next()">
+                <a href>Next</a>
+              </li>
+            </ul> <!-- /pager -->
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 main"  >
+        <!--
+        <div id="affixp" class="panel panel-default" affix>
+        -->
+        <div class="panel panel-default">
+          <div class="panel-heading panel-listP">
+            Room/Session and Monitors
+          </div>
+          <div id="room" class="panel-body" data-drop="true" jqyoui-droppable="{multiple: true, onDrop: 'postersMonitors.onDropRoom'}">
+            <div class="display-inline-block vertical-align-top">
+              <label>Session / Room</label>
+              <ui-select ng-model="postersMonitors.currentRoom"
+                         class="room-select"
+                         theme="bootstrap"
+                         ng-disabled="disabled"
+                         reset-search-input="false"
+                         on-select="postersMonitors.selectionOnRoom()">
+                <ui-select-match  placeholder="Select an room...">{{postersMonitors.currentRoom.title}} - {{postersMonitors.currentRoom.roomName}}</ui-select-match>
+                <ui-select-choices repeat="room in postersMonitors.Rooms ">
+                  <span  no-enter="true" ng-model="room.title" ng-bind-html="room.title">{{room.title}} - {{room.roomName}}</span>
+                </ui-select-choices>
+              </ui-select>
+
+            </div>
+
+            <div class="display-inline-block vertical-align-top">
+              <label>Date</label>
+              <input class="form-control" type="text" id="datepicker">
+            </div>
+
+            <div class="block-monitors">
+              <div class="monitors-in-room" data-ng-class="{'smaller-width': postersMonitors.PostersOnRoomWithoutMonitor}">
+                <div class="sortable-poster display-inline-block vertical-align-top" data-ng-repeat="monitor in postersMonitors.currentRoom.monitors">
+                  <div data-index="{{$index}}"
+                       data-drop="true"
+                       jqyoui-droppable="{multiple: true, onDrop: 'postersMonitors.onDropMonitor'}"
+                       data-jqyoui-options="{revert: true, greedy: true}"
+                       class="col-md-6 panel monitor">
+                    {{monitor.title}}
+
+                    <div ui-sortable="postersMonitors.sortableOptions"
+                         data-ng-model="postersMonitors.eventMonitor[$index]">
+                      <div data-ng-repeat="poster in postersMonitors.eventMonitor[$index]"
+                           data-id="{{poster._id}}"
+                           class="poster-wrapper panel">
+                        <span class="label label-default ng-binding">{{poster.code}}</span>
+                        <spam class="poster-title">{{poster.title}}</spam>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="posters-in-room">
+                <div data-ng-repeat="poster in postersMonitors.eventMonitor['-1']"
+                     data-id="{{poster._id}}"
+                     data-drag="true"
+                     jqyoui-draggable="{animate:false}"
+                     data-jqyoui-options="{revert: true, revertDuration: 0}"
+                     class="poster-wrapper panel">
+                     <span class="label label-default ng-binding">{{poster.code}}</span>
+                     <spam class="poster-title">{{poster.title}}</spam>
+                </div>
+              </div>
+          </div>
+          <button type="button" class="btn btn-primary count-button" ng-click="">{{postersMonitors.PostersOnRoomWithoutMonitor}}</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div ng-switch-default>
+      Sorry, we unable to load the content.
+    </div>
+  </div>
+  </div>
+  <!-- END Page content-->
+  <!-- START Page footer-->
+  <footer>&copy; 2014 - Wintermin</footer>
+  <!-- END Page Footer-->
+</section>

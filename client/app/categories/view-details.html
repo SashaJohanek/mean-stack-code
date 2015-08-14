@@ -1,0 +1,18 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('categories.details') }">
+  <div class="panel-heading">
+    {{data.model.name}}
+    <a href title="Edit this category" class="fa fa-edit pull-right" ui-sref="categories.update({id: data.model._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <p>
+      <img ng-if="data.model.picture" ng-src="{{data.model.picture}}" class="img-responsive img-thumbnail" alt="{{data.model.name}}" width="100%">
+    </p>
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="categories.update({id: data.model._id})">Edit</button>
+  </div>
+
+</div>

@@ -1,0 +1,29 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+<!-- END aside-->
+
+<section>
+  <!-- START content-->
+  <div class="main-content">
+    <button type="button" class="btn btn-primary pull-right" ui-sref="quizzes.add">
+      <em class="fa fa-plus-circle fa-fw mr-sm"></em>Add Quiz</button>
+    <h3>Quizzes
+       <br>
+       <small>Quizzes that provide lorem ipsum for our business.</small>
+    </h3>
+    <div class="row">
+      <div class="col-md-6 col-md main" ui-view="leftPane">
+      </div>
+
+      <div class="col-md-6 main" ui-view="rightPane">
+      </div>
+    </div>
+  </div>
+  <!-- END content-->
+
+  <!-- START footer-->
+  <footer>&copy; 2014 - Wintermin</footer>
+  <!-- END Footer-->
+</section>

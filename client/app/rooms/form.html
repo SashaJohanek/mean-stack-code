@@ -1,0 +1,105 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('rooms.add'), 'csspinner traditional': ui.inProgress }" >
+  <div class="panel-heading" ng-if="Add_Update == 'add' ">Add new room</div>
+  <div class="panel-heading" ng-if="Add_Update == 'update' ">Edit room</div>
+
+  <form role="form" name="addForm">
+    <div class="panel-body">
+      <div class="form-group">
+        <label>Title *</label>
+        <input class="form-control" type="text" ng-model="data.model.title" value="" placeholder="Title" required>
+      </div>
+
+      <div class="form-group">
+        <label>Body </label>
+        <textarea class="form-control" type="text" ng-model="data.model.body" value="" placeholder="Add body" ></textarea>
+      </div>
+
+      <div form-group>
+        <label>Monitors *</label>
+        <a title="Add monitors" class="pull-right" ng-click="addMonitorInputs()">Add Monitors</a>
+      </div>
+
+      <div class="form-group">
+          <div class="form-group" ng-repeat="item in data.model.monitors" ng-controller="MonitorsItemCtrl">
+            <h5>Monitor {{$index + 1}}
+              <button type="button" class="btn btn-danger btn-xs pull-right" ng-click="removeMonitors($index)">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+              </button>
+            </h5>
+
+            <div class="form-group">
+              <label>Title *</label>
+              <input class="form-control" type="text" ng-model="item.title" value="" placeholder="Add Monitor" required>
+            </div>
+
+            <div class="form-group">
+              <label>Body </label>
+              <textarea class="form-control" type="text" ng-model="item.body" value="" placeholder="Add body" ></textarea>
+            </div>
+
+          </div>
+
+      </div>
+
+      <div class="form-group">
+        <label>Presentation Duration(mins) </label>
+        <input type="number" class="form-control" ng-model="data.model.presentationDuration" placeholder="Add presentation duration">
+      </div>
+
+      <div class="form-group">
+        <label>Availability on</label>
+        <a title="Add Time slot" class="pull-right" ng-click="addTimeSlot()">Add Time-slot</a>
+      </div>
+
+      <div class="form-group time-slots">
+          <div class="form-group" ng-repeat="item in data.model.availability" ng-controller="TimeSlotItemCtrl">
+            <h5>Availability {{$index + 1}}
+              <button type="button" class="btn btn-danger btn-xs pull-right" ng-click="removeTimeSlot($index)">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+              </button>
+            </h5>
+
+            <div class="form-group">
+              <div class="row">
+                  <div class="pull-left picker">
+                    <!-- Split button -->
+                    <p class="input-group ">
+                        <input type="text" class="form-control" datetime-picker="MMM dd, hh:mm a" ng-model="timeslots[$index].startDate" is-open="opened[$index]" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event, $index)"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                  </div>
+
+                  <div class="pull-left datetimesmarker">
+                    <span>&ndash;</span>
+                  </div>
+
+                  <div class="pull-left picker">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datetime-picker="MMM dd, hh:mm a" ng-model="timeslots[$index].endDate" is-open="opened1[$index]" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open1($event, $index)"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                  </div>
+              </div>
+            </div>
+
+          </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-footer">
+      <button ng-disabled="(addForm.$valid) ? false : true" class="btn btn-success" ng-click="save()">
+        <span ng-if="Add_Update == 'add' " >Save</span>
+        <span ng-if="Add_Update == 'update' ">Update</span>
+      </button>
+      <button ui-sref="rooms" class="btn btn-warning">Cancel</button>
+    </div>
+  </form>
+</div>

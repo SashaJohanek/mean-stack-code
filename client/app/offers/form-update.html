@@ -1,0 +1,113 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('offers.update'), 'csspinner traditional': ui.inProgress }">
+  <div class="panel-heading">Edit offer</div>
+
+  <form role="form" name="updateForm">
+    <div class="panel-body">
+
+      <div class="form-group">
+        <label>Name *</label>
+        <input class="form-control" type="text" ng-model="data.model.name" value="" placeholder="Name" required>
+      </div>
+
+      <div class="form-group">
+        <label>Intro *</label>
+        <input type="text" placeholder="Enter a short description" class="form-control" ng-model="data.model.intro" required>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" placeholder="Enter a long description" class="form-control" ng-model="data.model.description">
+      </div>
+
+      <div class="form-group">
+        <label>Item</label>
+        <select ng-model="data.model.item" ng-options="item.name for item in data.items" class="form-control">
+          <option value="">-- No menu item --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Prices *</label>
+        <a title="Add more prices" class="pull-right" ng-click="addPriceInputs()">Add new price</a>
+
+        <table class="table-condensed">
+          <tr>
+            <th>Type</th>
+            <th>Price</th>
+          </tr>
+
+          <tr ng-repeat="price in data.model.prices">
+            <td>
+              <input class="form-control" type="text" ng-model="price.name" value="" placeholder="Enter the price name" required>
+            </td>
+            <td>
+              <input class="form-control" type="number" ng-model="price.value" value="" placeholder="Enter the value in number" required>
+            </td>
+            <td>
+              <button ng-if="$index>0" type="button" class="btn btn-danger btn-xs pull-right" ng-click="removePriceInputs($index)">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div><!-- /.form-group (item) -->
+
+      <div class="form-group">
+        <label>Photo</label>
+        <div class="well">
+          <p>
+            <img ng-if="data.model.picture" ng-src="{{data.model.picture}}" class="img-responsive img-thumbnail" alt="{{data.model.name}}" width="100%">
+          </p>
+
+          <p>
+            <button ng-if="data.model.picture" type="button" class="btn btn-danger btn-xs" ng-click="deleteImage(data.model)">
+              <span aria-hidden="true">&times;</span>
+              <!--
+              <span class="sr-only">Close</span>
+              -->
+              <span>Delete image</span>
+            </button>
+          </p>
+
+          <div ng-file-drop="onFileSelect($files)"
+               ng-file-select="onFileSelect($files)"
+               ng-file-drag-over-class="bg-success"
+               ng-show="dropSupported"
+               class="drop-box">
+               drop an image here<br>
+               or click to select a file
+          </div>
+
+          <div ng-file-drop-available="dropSupported=true"
+               ng-show="!dropSupported">
+               HTML5 Drop File is not supported!
+               <input type="file" name="image" ng-model="data.model.file" ng-file-select="onFileSelect($files)">
+          </div>
+
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: {{ui.progress}}%">
+              {{ui.progress}}% Complete
+            </div>
+          </div>
+        </div> <!-- /.well -->
+      </div> <!-- /.form-group (photo) -->
+
+      <div class="checkbox c-checkbox">
+        <label>
+          <input type="checkbox" ng-model="data.model.active">
+          <span class="fa fa-check"></span>Activate this offer
+        </label>
+      </div>
+      <span class="help-block" style="margin-left: 25px; font-size: 12px; margin-top: -8px">Set this offer as active or inactive.</span>
+
+      <div class="required">* Required fields</div>
+
+    </div>
+    <div class="panel-footer">
+      <button ng-disabled="(updateForm.$valid) ? false : true" class="btn btn-success" ng-click="update()">Update</button>
+      <button ui-sref="offers.details({id: data.model._id})" class="btn btn-warning">Cancel</button>
+    </div>
+  </form>
+
+</div>

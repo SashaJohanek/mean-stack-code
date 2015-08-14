@@ -1,0 +1,73 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('quizzes.add'), 'csspinner traditional': ui.inProgress }" ng-file-drop="onFileSelect($files)">
+  <div class="panel-heading">Add new quiz</div>
+
+  <form role="form" name="addForm">
+    <div class="panel-body">
+      <div class="form-group">
+        <label>Title *</label>
+        <input class="form-control" type="text" ng-model="data.model.title" value="" placeholder="Title" required>
+      </div>
+
+      <div class="form-group">
+        <label>Body *</label>
+        <textarea class="form-control" type="text" ng-model="data.model.body" value="" placeholder="Add body" required></textarea>
+      </div>
+
+      <div form-group>
+        <label>Questions *</label>
+        <a title="Add more question" class="pull-right" ng-click="addQuestionInputs()">Add question</a>
+      </div>
+
+      <div class="form-group">
+        <ng-form name="questionForm">
+          <div class="form-group" ng-repeat="questionItem in data.model.questions" ng-controller="QuestionItemCtrl">
+            <h5>Question {{$index + 1}}
+              <button type="button" class="btn btn-danger btn-xs pull-right" ng-click="removeQuestion($index)">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+              </button>
+            </h5>
+
+            <input class="form-control" type="text" ng-model="questionItem.question" value="" placeholder="Add question" required>
+
+            <div class="form-group">
+              <p>
+
+              </p>
+              <table class="table-condensed" style="width: 95%; margin-left: 5%;">
+                <tr>
+                  <td>
+                    <strong ng-if="questionItem.answers.length>0">Answer / Is Correct</strong>
+                  </td>
+                  <td colspan="2"><a title="Add answer" class="pull-right" ng-click="addAnswerInputs(questionItem.answers)">Add answer</a>
+                  </td>
+                </tr>
+                <tr ng-repeat="answerItem in questionItem.answers" ng-controller="AnswerItemCtrl">
+                  <td>
+                    <input type="text" class="form-control" ng-model="answerItem.answer">
+                  </td>
+                  <td>
+                    <input type="checkbox" ng-model="answerItem.isCorrect" value="$index">
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-danger btn-xs pull-right" ng-click="removeAnswerInputs(questionItem.answers, $index)">
+                      <span aria-hidden="true">&times;</span>
+                      <span class="sr-only">Close</span>
+                    </button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </ng-form>
+      </div>
+
+      <div class="required">* Required fields</div>
+    </div>
+
+    <div class="panel-footer">
+      <button ng-disabled="(addForm.$valid) ? false : true" class="btn btn-success" ng-click="save()">Save</button>
+      <button ui-sref="quizzes" class="btn btn-warning">Cancel</button>
+    </div>
+  </form>
+</div>

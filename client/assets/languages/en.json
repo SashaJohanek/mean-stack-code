@@ -1,0 +1,20 @@
+{
+  "TITLE": "Title",
+  "ADD_ARTICLE": "Add article",
+  "NEWS_PAGE_HEADING": "Articles",
+  "NEWS_LIST_HEADING": "List of articles",
+  "NEWS_LIST_NOT_AVAILABLE": "There are no data available.",
+  "NEWS_LIST_ADD_LINK": "Add",
+  "NEWS_ADD_FORM_TITLE_LABEL": "Title",
+  "NEWS_ADD_FORM_TITLE_PLACEHOLDER": "Title",
+  "NEWS_ADD_FORM_CAT_TAGS_LABEL": "Categories / Tags",
+  "NEWS_ADD_FORM_CAT_TAGS_PLACEHOLDER": "tag1, tag2, tag3",
+  "NEWS_ADD_FORM_BODY_LABEL": "Body",
+  "NEWS_ADD_FORM_BODY_PLACEHOLDER": "Body text",
+  "NEWS_ADD_FORM_PHOTO_LABEL": "Photo",
+  "NEWS_ADD_FORM_PHOTO_PLACEHOLDER": "drop an image here or click to select a file",
+  "NEWS_ADD_FORM_HTML5_DROP": "HTML5 Drop File is not supported!",
+  "NEWS_ADD_FORM_REQUIRED_FIELDS": "Required Fields",
+  "NEWS_ADD_FORM_SAVE_BUTTON": "Save",
+  "NEWS_ADD_FORM_CANCEL_BUTTON": "Cancel"
+}

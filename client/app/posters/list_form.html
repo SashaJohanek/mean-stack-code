@@ -1,0 +1,82 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('posters.add'), 'csspinner traditional': ui.inProgress }" >
+  <div class="panel-heading" ng-if="Add_Update == 'add' ">Add new poster</div>
+  <div class="panel-heading" ng-if="Add_Update == 'update' ">Edit poster {{data.model.code}}</div>
+
+    <form role="form" name="addForm" id="addForm">
+      <div class="panel-body">
+      <div class="form-group">
+        <label for="title">Title *</label>
+        <input type="text" class="form-control" id="title" ng-model="data.model.title" required>
+      </div>
+      <div class="form-group">
+        <label for="body">Code</label>
+        <input type="text" class="form-control"  class="form-control" rows="2" id="code" ng-model="data.model.code" />
+      </div>
+      <div class="form-group">
+        <label for="body">Presentation Type</label>
+        <input type="text" class="form-control"  class="form-control" rows="3" id="presentationType" ng-model="data.model.presentationType" />
+      </div>
+      <div class="form-group">
+        <label for="room">Room</label>
+        <div class="row">
+          <div class="col-md-8">
+
+              <ui-select ng-model="selects.room"
+                theme="bootstrap"
+                ng-disabled="!selects.rooms"
+                reset-search-input="false"
+                on-select="onselectRoom()">
+
+                  <ui-select-match  placeholder="Select an room...">{{selects.room.title}}</ui-select-match>
+                  <ui-select-choices repeat="r in selects.rooms track by $index | filter: $select.search">
+                    <span  no-enter="true" ng-model="r.title" ng-bind-html="r.title | highlight: $select.search"></span>
+                  </ui-select-choices>
+              </ui-select>
+              </div>
+            </div>
+
+      </div>
+      <div class="form-group">
+          <label for="monitor">Monitor</label>
+          <div class="row">
+            <div class="col-md-8">
+
+                <ui-select ng-model="selects.monitor"
+                  theme="bootstrap"
+                  ng-disabled="!selects.room"
+                  reset-search-input="false">
+
+                    <ui-select-match  placeholder="Select an monitor">{{selects.monitor.title}}</ui-select-match>
+                       <ui-select-choices repeat="m in selects.room.monitors track by $index | filter: $select.search">
+                       <span  no-enter="true" ng-init="m.index = $index" ng-model="m.title" ng-bind-html="m.title | highlight: $select.search"></span>
+                     </ui-select-choices>
+                </ui-select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+
+        <label for="body">Date</label>
+        <div class="row">
+          <div class="col-md-8">
+            <p class="input-group">
+              <input type="text" class="form-control" datetime-picker="yyyy MMM dd, hh:mm a" ng-model="dt" is-open="opened" min-date="'2015-01-01'" max-date="'2020-01-01'" datepicker-options="dateOptions" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default date-btn" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+          </p>
+        </div>
+      </div>
+    </div>
+      <div class="panel-footer">
+        <button ng-disabled="(addForm.$valid) ? false : true" class="btn btn-success" ng-click="save()">
+          <span ng-if="Add_Update == 'add' " >Save</span>
+          <span ng-if="Add_Update == 'update' ">Update</span>
+        </button>
+        <button ui-sref="posters" class="btn btn-warning">Cancel</button>
+      </div>
+    </div>
+    </form>
+
+
+</div>

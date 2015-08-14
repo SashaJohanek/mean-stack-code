@@ -1,0 +1,14 @@
+node_modules
+public
+.tmp
+.sass-cache
+client/bower_components
+heroku
+/views
+distnews-app.sublime-project
+news-app.sublime-workspace
+news-app.sublime-project
+news-app.sublime-workspace
+dist/
+.idea
+.log

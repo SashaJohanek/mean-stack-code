@@ -1,0 +1,79 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+
+<section>
+  <!-- START Page content-->
+  <div class="main-content">
+    <h3>Upload csv file
+      <br>
+      <small>Upload csv file.</small>
+    </h3>
+    <div class="row">
+      <input type="file" class="input-file" file-change="uploadCsv.csvFile($event,files)"/>
+
+      <div>
+        <input type="checkbox" ng-true-value="'YES'" ng-false-value="'NO'" data-ng-model="uploadCsv.checkbox">
+        <div class="display-inline-block delimiter">
+          <label data-ng-class="{'checkbox-disable': uploadCsv.checkbox == 'NO'}">Select an delimiter</label>
+          <ui-select ng-model="uploadCsv.currentDelimiter"
+                     class="display-inline-block vertical-align-top room-select"
+                     theme="bootstrap"
+                     ng-disabled="uploadCsv.checkbox == 'NO'"
+                     reset-search-input="false"
+                     on-select="uploadCsv.filterPosters()">
+            <ui-select-match>{{uploadCsv.currentDelimiter}}</ui-select-match>
+            <ui-select-choices repeat="delimiter in uploadCsv.delimiter">
+              <span no-enter="true">{{delimiter}}</span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+
+      <div>
+        <input type="checkbox" ng-true-value="'NO'" ng-false-value="'YES'" data-ng-model="uploadCsv.checkbox">
+        <div class="delimiter display-inline-block">
+          <label data-ng-class="{'checkbox-disable': uploadCsv.checkbox == 'YES'}">or specify preferable delimiter</label>
+          <input ng-model="uploadCsv.currentDelimiter" class="delimiter-input" type="text" ng-disabled="uploadCsv.checkbox == 'YES'" ng-blur="uploadCsv.filterPosters()"/>
+        </div>
+      </div>
+
+      <input type="button" class="btn btn-primary" ng-click="uploadCsv.onSave()" value="save" ng-disabled="!uploadCsv.uploadedPosters.length"/>
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+          <tr role="row">
+          <th>Code</th>
+          <th>Title</th>
+          <th>Authors | isPresenter | isCorresponding</th>
+          </thead>
+
+          <tbody>
+          <tr ng-repeat="record in uploadCsv.uploadedPosters">
+            <td >
+              <p>{{record.code}}</p>
+            </td>
+            <td >
+              <p>{{record.title}}</p>
+            </td>
+            <td >
+              <p ng-repeat="author in record.authors">
+                <span>{{author.firstName}}</span>
+                <span>, {{author.lastName}}</span>
+                <span> | {{author.isPresenter}}</span>
+                <span> | {{author.isCorresponding}}</span>
+              </p>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <!-- END Page content-->
+  <!-- START Page footer-->
+  <footer>&copy; 2014 - Wintermin</footer>
+  <!-- END Page Footer-->
+</section>

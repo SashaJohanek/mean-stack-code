@@ -1,0 +1,105 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Search panel
+    <a href="javascript:void(0);" data-perform="panel-collapse" data-toggle="tooltip" title="" class="pull-right" data-original-title="Collapse Panel">
+      <em class="fa fa-minus"></em>
+    </a>
+  </div>
+  <div class="panel-wrapper collapse in" style="height: auto;">
+    <div class="panel-body">
+      <input type="text" class="form-control inp-search" ng-model="search">
+
+      <div class="form-group">
+        <label>Presentation Type</label>
+        <ui-select ng-model="selectedPoster.model"
+                   class=""
+                   theme="bootstrap"
+                   ng-disabled="disabled"
+                   reset-search-input="false"
+                   on-select="">
+          <ui-select-match  placeholder="Select an type...">{{$select.selected.presentationType}}</ui-select-match>
+          <ui-select-choices repeat="poster in data.records | unique: 'presentationType'">
+            <span no-enter="true" ng-bind-html="poster.presentationType">{{poster.presentationType}}</span>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+      <div class="form-group">
+        <div class="checkbox c-checkbox">
+          <label>
+            <input type="checkbox" value="" ng-model="assigned">
+            <span class="fa fa-check"></span>Assigned</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">List of posters</div>
+  <div class="panel-body">
+    <div ng-switch on="data.records.length > 0">
+      <!-- Display the content when available -->
+      <div ng-switch-when="true">
+
+        <table class="table table-hover">
+          <thead>
+            <tr role="row">
+              <th>Title</th>
+              <th class="cell-actions">Actions</th>
+          </thead>
+
+          <tbody>
+            <tr ng-repeat="record in data.records |
+                  filter: search |
+                  filter: { presentationType: selectedPoster.model.presentationType } |
+                  filter: filteringByAssigned"
+                ng-controller="PostersItemCtrl">
+              <td ui-sref="posters.details({id: record._id})">
+                <p><span class="label label-info mr ng-binding">{{record.code}}</span>{{record.title}}</p>
+                <p>
+                  <span class="label label-primary">{{record.presentationType}}</span>
+                </p>
+              </td>
+              <td>
+                <button type="button" class="btn btn-labeled btn-default btn-xs" ui-sref="posters.update({id: record._id})">
+                  <span class="btn-label"><i class="fa fa-edit"></i></span>Edit
+                </button>
+                <button type="button" class="btn btn-labeled btn-danger btn-xs" ng-click="deleteItem(record)">
+                  <span class="btn-label"><i class="fa fa-trash-o"></i></span>Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- pager -->
+        <ul class="pager">
+          <!-- Previous button when enabled-->
+          <li ng-hide="paginator.previous()" class="previous">
+            <a href ng-click="previousPage()">Previous</a>
+          </li>
+
+          <!-- Previous button when disabled-->
+          <li class="previous disabled" ng-show="paginator.previous()">
+            <a href>Previous</a>
+          </li>
+
+          <!-- Next button when enabled-->
+          <li ng-hide="paginator.next()" class="next">
+            <a href ng-click="nextPage()">Next</a>
+          </li>
+
+          <!-- Next button when disabled-->
+          <li class="next disabled" ng-show="paginator.next()">
+            <a href>Next</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Say sorry when we are not able to display the content -->
+      <div ng-switch-default>
+        Sorry, we unable to load the content.
+      </div>
+    </div>
+  </div>
+  <!-- //.panel-body -->
+</div>

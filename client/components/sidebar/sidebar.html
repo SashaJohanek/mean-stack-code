@@ -1,0 +1,242 @@
+<!--
+<div ng-controller="SidebarCtrl" ng-show="currentUser" class="col-md-2 sidebar">
+  <ul class="nav nav-sidebar">
+    <li><a ui-sref="main">Home</a>
+    </li>
+    <li><a ui-sref="news">News</a>
+    </li>
+  </ul>
+</div>
+-->
+
+<!-- START Sidebar (left)-->
+<nav ng-controller="SidebarCtrl" ng-show="currentUser" class="sidebar">
+  <ul class="nav">
+    <!-- START Menu-->
+    <li class="nav-heading">{{ currentUser.name }}</li>
+    <li ng-class="{active: isGroupActive('dashboard')}">
+      <a ui-sref="main" title="Dashboard" data-toggle="" class="no-submenu">
+        <em class="fa fa-dashboard"></em>
+        <span class="item-text">Dashboard</span>
+      </a>
+    </li>
+
+    <li ng-class="{active: isGroupActive('orders')}" ng-if="!isAdmin()">
+      <a ui-sref="orders" title="Orders" data-toggle="" class="no-submenu">
+        <em class="fa fa-usd"></em>
+        <span class="item-text">Orders</span>
+      </a>
+    </li>
+
+    <li ng-class="{active: isGroupActive('articles')}" ng-if="!isAdmin()">
+      <a ui-sref="articles" title="Articles" data-toggle="" class="no-submenu">
+        <em class="fa fa-comments-o"></em>
+        <span class="item-text">Articles</span>
+      </a>
+    </li>
+
+    <li ng-class="{active: isGroupActive('lectures-group')}" ng-if="!isAdmin()">
+      <a href="" title="Lectures" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-book"></em>
+        <span class="item-text">Lectures</span>
+      </a>
+      <!-- START SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('lectures-group')}">
+        <li ng-class="{active: isItemActive('grades')}">
+          <a ui-sref="grades" title="Grades" data-toggle="" class="no-submenu">
+            <em class="fa fa-trophy"></em>
+            <span class="item-text">Grades</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('courses')}">
+          <a ui-sref="courses" title="Courses" data-toggle="" class="no-submenu">
+            <em class="fa fa-university"></em>
+            <span class="item-text">Courses</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('topics')}">
+          <a ui-sref="topics" title="Topics" data-toggle="" class="no-submenu">
+            <em class="fa fa-tags"></em>
+            <span class="item-text">Topics</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('lectures')}">
+          <a ui-sref="lectures" title="Lecture" data-toggle="" class="no-submenu">
+            <em class="fa fa-file-video-o"></em>
+            <span class="item-text">Lectures</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('quizzes')}">
+          <a ui-sref="quizzes" title="Quizzes" data-toggle="" class="no-submenu">
+            <em class="fa fa-question"></em>
+            <span class="item-text">Quizzes</span>
+          </a>
+        </li>
+
+      </ul>
+      <!-- END SubMenu item-->
+    </li>
+
+    <li ng-class="{active: isGroupActive('menu')}" ng-if="!isAdmin()">
+      <a href="" title="Menu" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-book"></em>
+        <span class="item-text">Menu</span>
+      </a>
+      <!-- START SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('menu')}">
+        <li ng-class="{active: isItemActive('categories')}">
+          <a ui-sref="categories" title="Categories" data-toggle="" class="no-submenu">
+            <span class="item-text">Categories</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('items')}">
+          <a ui-sref="items" title="Menu Items" data-toggle="" class="no-submenu">
+            <span class="item-text">Menu Items</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('offers')}">
+          <a ui-sref="offers" title="Offers" data-toggle="" class="no-submenu">
+            <span class="item-text">Offers</span>
+          </a>
+        </li>
+      </ul>
+      <!-- END SubMenu item-->
+    </li>
+    <li ng-class="{active: isGroupActive('restaurant')}" ng-if="!isAdmin()">
+      <a href="" title="My Restaurant" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-dot-circle-o"></em>
+        <span class="item-text">My Restaurant</span>
+      </a>
+      <!-- START SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('restaurant')}">
+        <li ng-class="{active: isItemActive('pages')}">
+          <a ui-sref="pages" title="Pages" data-toggle="" class="no-submenu">
+            <span class="item-text">Pages</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('reviews')}">
+          <a ui-sref="reviews" title="Reviews" data-toggle="" class="no-submenu">
+            <span class="item-text">Reviews</span>
+          </a>
+        </li>
+      </ul>
+      <!-- END SubMenu item-->
+    </li>
+
+    <li ng-class="{active: isGroupActive('push')}">
+      <a ui-sref="push" title="Push" data-toggle="collapse-next" class="no-submenu">
+        <em class="fa fa-bullhorn"></em>
+        <span class="item-text">Push</span>
+      </a>
+    </li>
+
+
+    <li ng-class="{active: isGroupActive('account')}" ng-if="!isAdmin()">
+      <a href="" title="Account" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-gears"></em>
+        <span class="item-text">Account</span>
+      </a>
+      <!-- START SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('account')}">
+        <li ng-class="{active: isItemActive('business')}">
+          <a ui-sref="business" title="Business" data-toggle="" class="no-submenu">
+            <span class="item-text">Business</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('photos')}">
+          <a ui-sref="photos" title="Photos" data-toggle="" class="no-submenu">
+            <span class="item-text">Photos</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('invoice')}">
+          <a ui-sref="invoice" title="Invoice" data-toggle="" class="no-submenu">
+            <span class="item-text">Invoice</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('contact')}">
+          <a ui-sref="contact" title="Contact" data-toggle="" class="no-submenu">
+            <span class="item-text">Contact</span>
+          </a>
+        </li>
+      </ul>
+      <!-- END SubMenu item-->
+    </li>
+
+    <li ng-show="isAdmin()" ng-class="{active: isGroupActive('admin')}">
+      <a href="/admin" ng-class="{active: isActive('/admin')}" class="no-submenu">
+        <em class="fa fa-users"></em>
+        <span class="item-text">Administration</span>
+      </a>
+    </li>
+
+    <li>
+      <a title="Languanges" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-flag"></em>
+        <span class="item-text">Languanges</span>
+      </a>
+      <!-- Languages sub menu items -->
+      <ul class="nav collapse">
+        <li>
+          <a ng-click="onChangeLanguage('en')" title="English" data-toggle="" class="no-submenu">
+            <span class="item-text">English</span>
+          </a>
+        </li>
+        <li>
+          <a ng-click="onChangeLanguage('de')" title="Germany" data-toggle="" class="no-submenu">
+            <span class="item-text">Germany</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+
+
+    <li ng-class="{active: isGroupActive('posters')}">
+      <a href="" title="Posters" data-toggle="collapse-next" class="has-submenu">
+        <em class="fa fa-book"></em>
+        <span class="item-text">Posters</span>
+      </a>
+      <!-- Posters SubMenu item-->
+      <ul class="nav collapse" ng-class="{in: isGroupActive('posters')}">
+        <li ng-class="{active: isItemActive('posters')}">
+          <a ui-sref="posters" title="List" data-toggle="" class="no-submenu">
+            <span class="item-text">List</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('upload-csv')}">
+          <a ui-sref="upload-csv" title="Upload-csv" data-toggle="" class="no-submenu">
+            <span class="item-text">Upload csv file</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('calendar')}">
+          <a ui-sref="calendar" title="Calendar" data-toggle="" class="no-submenu">
+            <span class="item-text">Calendar</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('monitors')}">
+          <a ui-sref="monitors" title="Monitors" data-toggle="" class="no-submenu">
+            <span class="item-text">Monitors</span>
+          </a>
+        </li>
+        <li ng-class="{active: isItemActive('rooms')}">
+          <a ui-sref="rooms" title="rooms" data-toggle="" class="no-submenu">
+          <span class="item-text">Rooms</span>
+          </a>
+        <li ng-class="{active: isItemActive('rooms-split')}">
+          <a ui-sref="rooms-split" title="Two Rooms" data-toggle="" class="no-submenu">
+            <span class="item-text">Two Rooms</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+
+    <!--<li ng-class="{active: isGroupActive('posters')}">-->
+      <!--<a ui-sref="posters" title="Posters" data-toggle="" class="no-submenu">-->
+        <!--<span class="item-text">Posters</span>-->
+      <!--</a>-->
+    <!--</li>-->
+
+  </ul>
+</nav>
+<!-- END Sidebar (left)-->

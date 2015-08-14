@@ -1,0 +1,42 @@
+<!-- START aside-->
+<aside class="aside">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+</aside>
+<!-- END aside-->
+
+<section>
+  <!-- START Page content-->
+  <div class="main-content">
+    <button type="button" class="btn btn-primary pull-right" ui-sref="offers.add">
+       <em class="fa fa-plus-circle fa-fw mr-sm"></em>Add Offer</button>
+    <h3>Offers
+       <br>
+       <small>The weekly offers our business is providing.</small>
+    </h3>
+
+    <div class="row">
+      <div class="col-md-6 col-md main" ui-view="leftPane">
+      </div>
+
+      <div class="col-md-6 main" ui-view="rightPane">
+      </div>
+    </div>
+    <fieldset>
+      <div class="row">
+        <div class="form-group form">
+          <div class="col-sm-1">
+            <label class="switch">
+              <input type="checkbox" ng-model="account.offers.active" ng-change="update()">
+              <span></span>
+            </label>
+          </div>
+          <label class="col-sm-9 control-label" style="padding-top: 7px;">Turn offers On/Off</label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <!-- END Page content-->
+  <!-- START Page footer-->
+  <footer>&copy; 2014 - Wintermin</footer>
+  <!-- END Page Footer-->
+</section>

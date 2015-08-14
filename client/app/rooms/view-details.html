@@ -1,0 +1,33 @@
+<div class="panel panel-default" ng-class="{ active: $state.includes('rooms.details') }">
+  <div class="panel-heading">
+    {{data.model.title}} <span class="label label-default ml">{{data.model.roomName}}</span>
+    <a href title="Edit this room" class="fa fa-edit pull-right" ui-sref="rooms.update({id: data.model._id})"></a>
+  </div>
+
+  <div class="panel-body">
+    <span class="label label-primary pull-right">{{data.model.startDate | date: 'yyyy-MM-dd HH:mm:ss Z'}}</span>
+    <p ng-bind="data.model.body"></p>
+
+    <div ng-repeat="item in data.model.monitors">
+      <h5>Monitor {{ $index + 1}}: <strong>{{ item.title }}</strong></h5>
+      <div class="panel-body">
+        <p ng-bind="item.body"></p>
+      </div>
+    </div>
+
+    <p><span class="text" >Presentation Duration: </span>{{data.model.presentationDuration}} <span class="text" > minutes</span></p>
+
+    <div ng-repeat="item in timeslots">
+      <h5>Availability {{ $index + 1}}: <strong></strong></h5>
+      <div class="panel-body">
+        <p >{{item.startDate}} ~ {{item.endDate}}</p>
+      </div>
+    </div>
+
+  </div>
+  <!-- //.panel-body -->
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" ui-sref="rooms.update({id: data.model._id})">Edit</button>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+{
+  "TITLE": "Titel",
+  "ADD_ARTICLE": "Artikel hinzufügen",
+  "NEWS_PAGE_HEADING": "Artikel",
+  "NEWS_LIST_HEADING": "Liste der Artikel",
+  "NEWS_LIST_NOT_AVAILABLE": "Es sind keine Daten vorhanden.",
+  "NEWS_LIST_ADD_LINK": "Hinzufügen",
+  "NEWS_ADD_FORM_TITLE_LABEL": "Titel",
+  "NEWS_ADD_FORM_TITLE_PLACEHOLDER": "Titel",
+  "NEWS_ADD_FORM_CAT_TAGS_LABEL": "Kategorien / Stichwörter",
+  "NEWS_ADD_FORM_CAT_TAGS_PLACEHOLDER": "tag1, tag2, tag3",
+  "NEWS_ADD_FORM_BODY_LABEL": "Körper",
+  "NEWS_ADD_FORM_BODY_PLACEHOLDER": "Fließtext",
+  "NEWS_ADD_FORM_PHOTO_LABEL": "Foto",
+  "NEWS_ADD_FORM_PHOTO_PLACEHOLDER": "Drop ein Bild oder klicken Sie hier, um eine Datei auszuwählen",
+  "NEWS_ADD_FORM_HTML5_DROP": "HTML5-Tropfen Datei wird nicht unterstützt!",
+  "NEWS_ADD_FORM_REQUIRED_FIELDS": "Erforderliche Felder",
+  "NEWS_ADD_FORM_SAVE_BUTTON": "Speichern",
+  "NEWS_ADD_FORM_CANCEL_BUTTON": "Stornieren"
+}
